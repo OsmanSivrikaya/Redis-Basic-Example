@@ -1,0 +1,35 @@
+Caching Nedir?
+Yazılım süreçlerinde verilere daha hızlı erişebilmek için bu verilerin bellekte saklanması işlemine caching denir. Bellekten gelen veriler,
+sabit diskten veya veritabanından gelenlere nazaran çok daha hızlı bir şekilde erişilir.
+
+Caching'in Yazılıma Katkıları Nelerdir?
+Veri Erişimini Hızlandırır: Bellekte tutulan veriler, daha hızlı erişim sağlar.
+Performans Artışı: Hızlı veri erişimi sayesinde uygulama performansı artar.
+Sunucu Yükünü Azaltır: Veritabanı ve disk erişimlerini azaltarak sunucu yükünü hafifletir.
+Çevrimiçi Uygulamalar İçin Kritik Önem Taşır: Kullanıcı deneyimini iyileştirir ve yüksek trafikte bile hızlı yanıt süreleri sağlar.
+Ne Tarz Veriler Cache'lenir?
+Cache'lenecek veriler, sıklıkla ve hızlı bir şekilde erişilebilecek veriler olmalıdır. Sürekli güncellenen veya kişisel olan veriler cache'lenmemelidir. 
+Güvenlik açısından risk teşkil eden veriler de cache'lenmemelidir.
+
+Caching Yaklaşımları Nelerdir?
+Cache uygulamak için iki ana yaklaşım vardır: In-Memory Caching ve Distributed Caching.
+
+In-Memory Caching: Uygulamanın çalıştığı bilgisayar/sunucunun RAM'inde veri cache'leme yöntemidir. Bu yöntem, hızlı ve kolay erişim sağlar, 
+ancak veriler sadece tek bir sunucuda saklandığı için ölçeklenebilirlik ve güvenlik sınırlamaları olabilir.
+
+Distributed Caching: Verileri birden fazla fiziksel makinede cache'leme yöntemidir. Bu yöntem, verileri farklı noktalarda tutarak daha güvenli
+ve ölçeklenebilir bir çözüm sunar. Veriler, bölünerek farklı makinelere dağıtılır, bu da büyük veri setleri için daha uygun ve ideal bir yaklaşımdır.
+
+Distributed Cache Yapıları:
+Redis: Anahtar-değer yapısında, in-memory veri yapısı mağazasıdır.
+Memcached: Yüksek performanslı, dağıtılmış bellek nesnesi cache sistemi.
+Hazelcast: Dağıtık veri yapıları ve hesaplamalar için açık kaynaklı bir bellek içi veri ızgarası.
+Apache Ignite: Bellek içi veri ızgarası ve dağıtılmış veritabanı.
+EHCache: Yüksek performanslı, özellik açısından zengin bir in-memory cache.
+
+Absolute Time Nedir? 
+Cachedeki datanın ne kadar tutulacağına dair net ömrünün belirtilmesidir. Berlirtilen ömür sona erdiğinde cache direkt olarak temizlenir.
+
+Sliding Time Nedir?
+Cach'lenmiş datanın mermory'de belirtilen süre periyodu zarfında tutulmasını belirtir. Belirtilen süre periyodu içerisinde cache'e yapılan erişim neticesinde de 
+datanın ömrü bir o kadar uzatılacaktır. Aksi taktirde belirtilen süre zarfında bir erişim söz konusu olmazsa cache temizlencektir.
