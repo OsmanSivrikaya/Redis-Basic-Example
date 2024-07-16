@@ -1,6 +1,6 @@
 Caching Nedir?
-Yazılım süreçlerinde verilere daha hızlı erişebilmek için bu verilerin bellekte saklanması işlemine caching denir. Bellekten gelen veriler,
-sabit diskten veya veritabanından gelenlere nazaran çok daha hızlı bir şekilde erişilir.
+Yazılım süreçlerinde verilere daha hızlı erişebilmek için bu verilerin bellekte saklanması işlemine caching denir. 
+Bellekten gelen veriler, sabit diskten veya veritabanından gelenlere nazaran çok daha hızlı bir şekilde erişilir.
 
 Caching'in Yazılıma Katkıları Nelerdir?
 Veri Erişimini Hızlandırır: Bellekte tutulan veriler, daha hızlı erişim sağlar.
@@ -8,17 +8,19 @@ Performans Artışı: Hızlı veri erişimi sayesinde uygulama performansı arta
 Sunucu Yükünü Azaltır: Veritabanı ve disk erişimlerini azaltarak sunucu yükünü hafifletir.
 Çevrimiçi Uygulamalar İçin Kritik Önem Taşır: Kullanıcı deneyimini iyileştirir ve yüksek trafikte bile hızlı yanıt süreleri sağlar.
 Ne Tarz Veriler Cache'lenir?
-Cache'lenecek veriler, sıklıkla ve hızlı bir şekilde erişilebilecek veriler olmalıdır. Sürekli güncellenen veya kişisel olan veriler cache'lenmemelidir. 
+Cache'lenecek veriler, sıklıkla ve hızlı bir şekilde erişilebilecek veriler olmalıdır. Sürekli güncellenen veya kişisel olan veriler cache'lenmemelidir.
 Güvenlik açısından risk teşkil eden veriler de cache'lenmemelidir.
 
 Caching Yaklaşımları Nelerdir?
 Cache uygulamak için iki ana yaklaşım vardır: In-Memory Caching ve Distributed Caching.
 
-In-Memory Caching: Uygulamanın çalıştığı bilgisayar/sunucunun RAM'inde veri cache'leme yöntemidir. Bu yöntem, hızlı ve kolay erişim sağlar, 
+In-Memory Caching:
+Uygulamanın çalıştığı bilgisayar/sunucunun RAM'inde veri cache'leme yöntemidir. Bu yöntem, hızlı ve kolay erişim sağlar, 
 ancak veriler sadece tek bir sunucuda saklandığı için ölçeklenebilirlik ve güvenlik sınırlamaları olabilir.
 
-Distributed Caching: Verileri birden fazla fiziksel makinede cache'leme yöntemidir. Bu yöntem, verileri farklı noktalarda tutarak daha güvenli
-ve ölçeklenebilir bir çözüm sunar. Veriler, bölünerek farklı makinelere dağıtılır, bu da büyük veri setleri için daha uygun ve ideal bir yaklaşımdır.
+Distributed Caching:
+Verileri birden fazla fiziksel makinede cache'leme yöntemidir. Bu yöntem, verileri farklı noktalarda tutarak daha güvenli ve ölçeklenebilir bir çözüm sunar.
+Veriler, bölünerek farklı makinelere dağıtılır, bu da büyük veri setleri için daha uygun ve ideal bir yaklaşımdır.
 
 Distributed Cache Yapıları:
 Redis: Anahtar-değer yapısında, in-memory veri yapısı mağazasıdır.
@@ -26,10 +28,25 @@ Memcached: Yüksek performanslı, dağıtılmış bellek nesnesi cache sistemi.
 Hazelcast: Dağıtık veri yapıları ve hesaplamalar için açık kaynaklı bir bellek içi veri ızgarası.
 Apache Ignite: Bellek içi veri ızgarası ve dağıtılmış veritabanı.
 EHCache: Yüksek performanslı, özellik açısından zengin bir in-memory cache.
+Cache Süreleri
+Absolute Time:
+Cache'deki verinin ne kadar süre tutulacağına dair net ömrünün belirtilmesidir. Belirtilen ömür sona erdiğinde cache direkt olarak temizlenir.
 
-Absolute Time Nedir? 
-Cachedeki datanın ne kadar tutulacağına dair net ömrünün belirtilmesidir. Berlirtilen ömür sona erdiğinde cache direkt olarak temizlenir.
+Sliding Time:
+Cache'lenmiş verinin memory'de belirtilen süre periyodu zarfında tutulmasını belirtir. Belirtilen süre periyodu içerisinde cache'e yapılan erişim neticesinde de 
+verinin ömrü bir o kadar uzatılacaktır. Aksi takdirde belirtilen süre zarfında bir erişim söz konusu olmazsa cache temizlenecektir.
 
-Sliding Time Nedir?
-Cach'lenmiş datanın mermory'de belirtilen süre periyodu zarfında tutulmasını belirtir. Belirtilen süre periyodu içerisinde cache'e yapılan erişim neticesinde de 
-datanın ömrü bir o kadar uzatılacaktır. Aksi taktirde belirtilen süre zarfında bir erişim söz konusu olmazsa cache temizlencektir.
+Replication
+Bazen Redis ile çalışırken sunucudaki verilerin güvencesini sağlayabilmek ve bir kopyasını saklayabilmek için önlemler almak isteyebiliriz. 
+Bunun için Redis Replication davranışını uygulayarak veri kaybı gibi durumlara karşı daha dirençli bir altyapı kurgulayabiliriz.
+
+Replication davranışında modellenecek/replikası alınacak olan sunucuya master adını veriyoruz. Master'ın replikasını alan sunucuya ise slave (köle) adını veriyoruz.
+
+Redis Sentinel Nedir?
+Redis, her ne kadar cache amacıyla kullandığımız bir veritabanı olsa da, yoğun operasyonların söz konusu olduğu mimarisel tasarımlarda kesintisiz hizmet
+ verebilmek için ölçeklenebilirlik yaklaşımları sergilenebilir. Redis Sentinel, bu ihtiyaçları karşılamak için kullanılan bir yapıdır.
+
+Failover Nedir?
+Master sunucunun arızalanması durumunda Sentinel tarafından herhangi bir slave'in master olarak atanması işlemine failover denir. Bir başka deyişle,
+herhangi bir master sunucu yerine geçip master olmasına failover denmektedir. Sentinel sunucusu failover işlemi gerçekleştirdiğinde,
+yeni master'ın IP değerini diğer slave'lere ileterek tüm sunucuların senkronize olmasını sağlar.
